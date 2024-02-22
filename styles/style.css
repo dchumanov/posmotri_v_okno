@@ -4,18 +4,39 @@
   box-sizing: border-box;
 }
 
+.visually-hidden {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  inline-size: 1px;
+  block-size: 1px;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 html {
   block-size: 100%;
 }
 
 .page {
-  inline-size: 1200px;
-  block-size: 100%;
+  /* Как можно выровнять по-другому, 
+  или это оптимальный вариант?
+  Когда пытался задать height для content в 60vh
+  и margin 20vh auto - у меня появлялся вертикальный скролл,
+  если делать через flex, то все ок */
+
+  display: flex;
+  justify-items: center;
+  align-items: center;
   margin: auto;
   color: #fff;
-  font-family: 'Fira Sans Condensed', sans-serif;
+  font-family: "Fira Sans Condensed", sans-serif;
+  font-weight: 400;
   font-size: 18px;
+  font-style: normal;
   background-color: #1b1919;
+  inline-size: 1200px;
+  block-size: 100%;
 }
 
 h1,
@@ -35,4 +56,285 @@ fieldset {
 ul,
 ol {
   list-style: none;
+}
+
+.content {
+  display: grid;
+  /* grid-template-columns: 2fr 1fr; */
+  grid-template-columns: 711px 399px;
+
+  column-gap: 30px;
+  min-height: 534px;
+
+  margin: 0 auto;
+  max-inline-size: 95%;
+}
+
+.result {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+}
+
+.result__video-container {
+  position: relative;
+  width: 100%;
+
+  height: 386px;
+  margin-top: 78px;
+}
+
+.result__video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  cursor: pointer;
+}
+
+.search-form {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: end;
+}
+
+.search-form__fieldset {
+  border: none;
+}
+
+.search-form__fieldset-title {
+  margin-bottom: 5px;
+  font-weight: 400;
+  font-size: 18px;
+}
+
+.search-form__label {
+  display: flex;
+  flex-direction: row;
+
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: fit-content;
+  padding: 2px;
+  cursor: pointer;
+}
+
+.search-form__label:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.search-form__textfield {
+  width: 225px;
+  height: 27px;
+  border: none;
+
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+
+  color: rgb(255 255 255 / 0.7);
+  font-family: inherit;
+  font-size: inherit;
+  background-color: transparent;
+  appearance: none;
+}
+
+.search-form__textfield.hover {
+  caret-color: #fff;
+}
+
+.search-form__textfield:active {
+  border: 1px solid #fff;
+}
+
+.search-form__textfield:focus {
+  outline: none;
+}
+
+.search-form__label:has(:focus-visible) {
+  border: 1px solid #fff;
+}
+
+.search-form__checkbox-list {
+  display: flex;
+  flex-direction: row;
+
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+.search-form__pseudo-checkbox {
+  display: flex;
+
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 19px;
+  height: 19px;
+  border: 1px solid #fff;
+}
+
+.search-form__checkbox:checked + .search-form__pseudo-checkbox::after {
+  content: "";
+  display: block;
+
+  width: 15px;
+  height: 15px;
+  background-color: white;
+  background-position: center;
+}
+
+.button {
+  height: 34px;
+  border: 1px solid #fff;
+  color: #fff;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: inherit;
+  background-color: transparent;
+
+  cursor: pointer;
+}
+
+button:focus {
+  outline: none;
+}
+
+button:focus-visible {
+  outline: 1px solid rgb(255, 255, 255 / 0.11);
+}
+
+button:hover {
+  text-decoration: underline;
+}
+
+button:active {
+  background-color: #545050;
+}
+
+.search-form__submit-button {
+  width: 194px;
+}
+
+.more-button {
+  width: 100%;
+}
+
+.content__details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+}
+
+.title {
+  font-family: Oswald, sans-serif;
+  font-weight: 700;
+  font-size: 75px;
+  line-height: 94%;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.content__accent {
+  color: #545050;
+}
+
+.content__list {
+  position: relative;
+
+  height: 298px;
+  overflow: auto;
+  /* Вертикальный скролбар - нужен ли? */
+  scrollbar-width: none;
+}
+
+.content__list:focus {
+  outline: none;
+}
+
+/* .content__list-item:not(:nth-last-child(2)) {
+  margin-bottom:  32px;
+}  */
+
+.content__list-item {
+  margin-bottom: 32px;
+}
+
+.content__card-link {
+  display: block;
+  margin: 2px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.content__card-link_current {
+  background-color: #545050;
+}
+
+.content__card-link:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.content__card-link:active {
+  background-color: #545050;
+}
+
+.content__card-link:focus {
+  outline: none;
+}
+
+.content__card-link:focus-visible {
+  outline: 1px solid #fff;
+}
+
+.content__video-card {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.content__video-card-description-container {
+  flex-grow: 1;
+  flex-basis: 0;
+  margin-top: 2px;
+  margin-left: 2px;
+  overflow: hidden;
+  /* width: 55%; */
+  text-align: left;
+}
+
+.content__video-card-title {
+  margin-bottom: 6px;
+  font-family: Oswald, sans-serif;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 100%;
+  text-transform: uppercase;
+}
+
+.content__video-card-description {
+  line-height: 91%;
+  /* text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden; */
+}
+
+.content__video-card-thumbnail {
+  width: 194px;
+  /* Почему если закомментировать ширину вся колонка 
+  .content__details (которая по идее 1fr) расползется
+  шире, чем 1fr? */
+  /* width: 45%; */
+  object-fit: cover;
 }
