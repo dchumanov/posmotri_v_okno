@@ -1,3 +1,5 @@
+/* Внес все исправления, осталось два вопроса, если не трудно, проясните, пожалуйста. */
+
 *,
 *::before,
 *::after {
@@ -19,8 +21,12 @@ html {
 }
 
 .page {
-  /* Как можно выровнять по-другому, 
-  или это оптимальный вариант?
+  /* 
+  ОБНОВЛЕНО
+  доброго времени дня) все же подскажите, пожалуйста,
+  каким еще образом могу выровнять центральный блок посередине?
+  пытался сделать вот так -
+  
   Когда пытался задать height для content в 60vh
   и margin 20vh auto - у меня появлялся вертикальный скролл,
   если делать через flex, то все ок */
@@ -62,11 +68,9 @@ ol {
   display: grid;
   /* grid-template-columns: 2fr 1fr; */
   grid-template-columns: 711px 399px;
-
   column-gap: 30px;
-  min-height: 534px;
-
   margin: 0 auto;
+  min-block-size: 534px;
   max-inline-size: 95%;
 }
 
@@ -74,24 +78,23 @@ ol {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 100%;
-  height: 100%;
+  inline-size: 100%;
+  block-size: 100%;
 }
 
 .result__video-container {
   position: relative;
-  width: 100%;
-
-  height: 386px;
-  margin-top: 78px;
+  margin-block-start: 78px;
+  inline-size: 100%;
+  block-size: 386px;
 }
 
 .result__video {
-  width: 100%;
-  height: 100%;
   object-fit: cover;
-
+  object-position: center;
   cursor: pointer;
+  inline-size: 100%;
+  block-size: 100%;
 }
 
 .search-form {
@@ -106,50 +109,51 @@ ol {
 }
 
 .search-form__fieldset-title {
-  margin-bottom: 5px;
   font-weight: 400;
   font-size: 18px;
+}
+
+.search-form__fieldset-title ~ .search-form__checkbox-list {
+  margin-block-start: 5px;
 }
 
 .search-form__label {
   display: flex;
   flex-direction: row;
-
   justify-content: center;
   align-items: center;
   gap: 5px;
-  width: fit-content;
   padding: 2px;
   cursor: pointer;
+  inline-size: fit-content;
 }
 
-.search-form__label:hover {
+/* Чтобы у textfield не было подчеркивания */
+.search-form__label:not(:has(.search-form__textfield)):hover {
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
 }
 
 .search-form__textfield {
-  width: 225px;
-  height: 27px;
   border: none;
-
   border-top: 1px solid #fff;
   border-bottom: 1px solid #fff;
-
   color: rgb(255 255 255 / 0.7);
   font-family: inherit;
   font-size: inherit;
   background-color: transparent;
+  inline-size: 225px;
+  block-size: 27px;
   appearance: none;
 }
 
-.search-form__textfield.hover {
+/* .search-form__textfield.hover {
   caret-color: #fff;
-}
+} */
 
 .search-form__textfield:active {
-  border: 1px solid #fff;
+  outline: 1px solid #fff;
 }
 
 .search-form__textfield:focus {
@@ -157,16 +161,20 @@ ol {
 }
 
 .search-form__label:has(:focus-visible) {
-  border: 1px solid #fff;
+  outline: 1px solid #fff;
 }
 
 .search-form__checkbox-list {
   display: flex;
   flex-direction: row;
-
   justify-content: center;
   align-items: center;
-  gap: 15px;
+  gap: 11px;
+  appearance: none;
+}
+
+.search-form__checkbox-list > .search-form__label:last-child {
+  padding-right: 5px;
 }
 
 .search-form__pseudo-checkbox {
@@ -175,23 +183,22 @@ ol {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 19px;
-  height: 19px;
   border: 1px solid #fff;
+  inline-size: 19px;
+  block-size: 19px;
 }
 
 .search-form__checkbox:checked + .search-form__pseudo-checkbox::after {
   content: "";
   display: block;
-
-  width: 15px;
-  height: 15px;
   background-color: white;
   background-position: center;
+
+  inline-size: 15px;
+  block-size: 15px;
 }
 
 .button {
-  height: 34px;
   border: 1px solid #fff;
   color: #fff;
   font-family: inherit;
@@ -200,6 +207,7 @@ ol {
   background-color: transparent;
 
   cursor: pointer;
+  block-size: 34px;
 }
 
 button:focus {
@@ -207,7 +215,7 @@ button:focus {
 }
 
 button:focus-visible {
-  outline: 1px solid rgb(255, 255, 255 / 0.11);
+  outline: 2px solid #545050;
 }
 
 button:hover {
@@ -219,19 +227,20 @@ button:active {
 }
 
 .search-form__submit-button {
-  width: 194px;
+  inline-size: 194px;
 }
 
 .more-button {
-  width: 100%;
+  margin-block-start: 32px;
+  inline-size: 100%;
 }
 
 .content__details {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 100%;
-  height: 100%;
+  inline-size: 100%;
+  block-size: 100%;
 }
 
 .title {
@@ -249,9 +258,8 @@ button:active {
 
 .content__list {
   position: relative;
-
-  height: 298px;
   overflow: auto;
+  block-size: 298px;
   /* Вертикальный скролбар - нужен ли? */
   scrollbar-width: none;
 }
@@ -260,12 +268,8 @@ button:active {
   outline: none;
 }
 
-/* .content__list-item:not(:nth-last-child(2)) {
-  margin-bottom:  32px;
-}  */
-
-.content__list-item {
-  margin-bottom: 32px;
+.content__list-item:not(:nth-last-child(2)) {
+  margin-block-end: 32px;
 }
 
 .content__card-link {
@@ -301,21 +305,21 @@ button:active {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 100%;
+  inline-size: 100%;
 }
 
 .content__video-card-description-container {
   flex-grow: 1;
   flex-basis: 0;
-  margin-top: 2px;
-  margin-left: 2px;
+  margin-inline-start: 2px;
+  margin-block-start: 2px;
   overflow: hidden;
   /* width: 55%; */
   text-align: left;
 }
 
 .content__video-card-title {
-  margin-bottom: 6px;
+  margin-block-end: 6px;
   font-family: Oswald, sans-serif;
   font-weight: 700;
   font-size: 30px;
@@ -331,10 +335,35 @@ button:active {
 }
 
 .content__video-card-thumbnail {
-  width: 194px;
-  /* Почему если закомментировать ширину вся колонка 
-  .content__details (которая по идее 1fr) расползется
-  шире, чем 1fr? */
-  /* width: 45%; */
   object-fit: cover;
+  object-position: center;
+  inline-size: 194px;
+
+  /* ОБНОВЛЕНО */
+
+  /* Мой вопрос
+  Почему если закомментировать ширину вся колонка 
+  .content__details (которая по идее 1fr) расползется шире, чем 1fr? 
+
+  То есть, изначально (до задания фикс значений колонкам) 
+  задал блоку content grid-template-columns: 2fr 1fr;
+
+  И вот эта картинка content__video-card-thumbnail не должна же
+  расширять эту вторую колонку, но все равно ее растягивает.
+  
+  width: 45%; 
+  
+  а у блока с описанием .content__video-card-description-container 
+  width: 55%;
+  */
+
+  /* Ответ ревьюера
+  Значит остальные размеры относительные элементов внутри, 
+  и так построена сетка, что внутренние элементы будут занимать 
+  большой процент от родительских контейнеров. */
+
+  /* Если честно, я не особо понял...
+  Я хочу разобраться, почему если я задаю ширину блокам в процентах, 
+  контент все равно их растягивает.
+   */
 }
